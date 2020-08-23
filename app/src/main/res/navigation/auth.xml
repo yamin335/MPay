@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/auth_graph"
+    app:startDestination="@id/viewPagerFragment"
+    tools:ignore="UnusedNavigation">
+    <fragment
+        android:id="@+id/viewPagerFragment"
+        android:name="com.qpay.customer.ui.login.ViewPagerFragment"
+        tools:layout="@layout/fragment_view_pager">
+        <action
+            android:id="@+id/action_viewPagerFragment_to_signInFragment"
+            app:destination="@id/signInFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/preOnBoardFragment"
+        android:name="com.qpay.customer.ui.pre_on_boarding.PreOnBoardingFragment"
+        tools:layout="@layout/fragment_pre_onbarding">
+        <action
+            android:id="@+id/action_preOnBoard_to_howWorks"
+            app:destination="@id/howWorksFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/auth_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/howWorksFragment"
+        android:name="com.qpay.customer.ui.how_works.HowWorksFragment"
+        tools:layout="@layout/fragment_how_works">
+        <action
+            android:id="@+id/action_howWorks_to_registration"
+            app:destination="@id/registrationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/auth_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+
+
+
+
+    <fragment
+        android:id="@+id/termsAndConditions"
+        android:name="com.qpay.customer.ui.terms_and_conditions.TermsAndConditionsFragment"
+        tools:layout="@layout/fragment_terms_and_condition">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.qpay.customer.ui.registration.RegistrationFragment"
+        tools:layout="@layout/fragment_registration">
+        <action
+            android:id="@+id/action_registration_to_otp"
+            app:destination="@id/otpFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/auth_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/otpFragment"
+        android:name="com.qpay.customer.ui.otp.OtpFragment"
+        tools:layout="@layout/fragment_otp">
+        <action
+            android:id="@+id/action_otp_to_tou"
+            app:destination="@id/touFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/auth_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/touFragment"
+        android:name="com.qpay.customer.ui.on_boarding.tou.TouFragment"
+        tools:layout="@layout/fragment_tou">
+        <action
+            android:id="@+id/action_tou_to_setup"
+            app:destination="@id/setupFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/auth_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/setupFragment"
+        android:name="com.qpay.customer.ui.setup.SetupFragment"
+        tools:layout="@layout/fragment_setup">
+        <action
+            android:id="@+id/action_setup_to_setupComplete"
+            app:destination="@id/setupCompleteFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/auth_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/setupCompleteFragment"
+        android:name="com.qpay.customer.ui.setup_complete.SetupCompleteFragment"
+        tools:layout="@layout/fragment_setup_complete">
+        <action
+            android:id="@+id/action_setupComplete_to_home"
+            app:destination="@id/main_graph"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/auth_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.qpay.customer.ui.login.SignInFragment"
+        tools:layout="@layout/fragment_sign_in">
+        <action
+            android:id="@+id/action_signInFragment_to_otpSignInFragment"
+            app:destination="@id/otpSignInFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="false"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="false" />
+
+        <action
+            android:id="@+id/action_signInFragment_to_termsFragment"
+            app:destination="@id/termsAndConditions"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="false"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/otpSignInFragment"
+        android:name="com.qpay.customer.ui.otp_signin.OtpSignInFragment"
+        tools:layout="@layout/fragment_otp_sign_in">
+        <action
+            android:id="@+id/action_otpSignInFragment_to_pinNumberFragment"
+            app:destination="@id/pinNumberFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="false"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/pinNumberFragment"
+        android:name="com.qpay.customer.ui.pin_number.PinNumberFragment"
+        tools:layout="@layout/fragment_pin_number">
+        <action
+            android:id="@+id/action_pinNumberFragment_to_permissionsFragment"
+            app:destination="@id/permissionsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileSignInFragment"
+        android:name="com.qpay.customer.ui.profile_signin.ProfileSignInFragment"
+        tools:layout="@layout/fragment_profile_sign_in">
+        <action
+            android:id="@+id/action_profileSignInFragment_to_home"
+            app:destination="@id/main_graph"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/auth_graph"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="NIDData"
+            app:argType="com.qpay.customer.models.NIDDataModels" />
+    </fragment>
+    <fragment
+        android:id="@+id/permissionsFragment"
+        android:name="com.qpay.customer.camerax.PermissionsFragment"
+        android:label="PermissionsFragment">
+        <action
+            android:id="@+id/action_permissionsFragment_to_cameraFragment"
+            app:destination="@id/cameraFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/pinNumberFragment" />
+        <action
+            android:id="@+id/action_permissionsFragment_to_NIDScanCameraXFragment"
+            app:destination="@id/NIDScanCameraXFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/pinNumberFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.qpay.customer.camerax.CameraFragment"
+        android:label="CameraFragment">
+        <action
+            android:id="@+id/action_cameraFragment_to_profileSignInFragment"
+            app:destination="@id/profileSignInFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/pinNumberFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/NIDScanCameraXFragment"
+        android:name="com.qpay.customer.nid_scan.NIDScanCameraXFragment"
+        android:label="NIDScanCameraXFragment">
+        <action
+            android:id="@+id/action_NIDScanCameraXFragment_to_profileSignInFragment"
+            app:destination="@id/profileSignInFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/pinNumberFragment" />
+    </fragment>
+
+</navigation>
