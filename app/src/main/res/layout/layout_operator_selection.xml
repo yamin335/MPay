@@ -16,7 +16,9 @@
             android:padding="10dp"
             android:text="@string/please_select_operator"
             android:textColor="@color/colorWhite"
-            android:textSize="18sp"></TextView>
+            android:textSize="18sp">
+
+        </TextView>
 
 
         <LinearLayout
@@ -50,7 +52,6 @@
                     android:layout_margin="10dp"
                     android:layout_weight="1.0"
                     android:adjustViewBounds="true"
-
                     android:background="?attr/selectableItemBackground"
                     android:scaleType="fitCenter"
                     android:src="@drawable/robi">
@@ -72,7 +73,6 @@
                     android:layout_margin="10dp"
                     android:layout_weight="1.0"
                     android:adjustViewBounds="true"
-
                     android:background="?attr/selectableItemBackground"
                     android:scaleType="fitCenter"
                     android:src="@drawable/banglalink">
@@ -87,7 +87,6 @@
                     android:layout_weight="1.0"
                     android:adjustViewBounds="true"
                     android:background="?attr/selectableItemBackground"
-
                     android:scaleType="fitCenter"
                     android:src="@drawable/teletalk">
 

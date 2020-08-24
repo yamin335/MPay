@@ -57,6 +57,9 @@
         android:name="com.qpay.customer.ui.terms_and_conditions.TermsAndConditionsFragment"
         tools:layout="@layout/fragment_terms_and_condition">
 
+        <action
+            android:id="@+id/action_termsAndConditions_to_otpSignInFragment3"
+            app:destination="@id/otpSignInFragment" />
     </fragment>
 
     <fragment
@@ -142,15 +145,6 @@
         android:id="@+id/signInFragment"
         android:name="com.qpay.customer.ui.login.SignInFragment"
         tools:layout="@layout/fragment_sign_in">
-        <action
-            android:id="@+id/action_signInFragment_to_otpSignInFragment"
-            app:destination="@id/otpSignInFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:launchSingleTop="false"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            app:popUpToInclusive="false" />
 
         <action
             android:id="@+id/action_signInFragment_to_termsFragment"

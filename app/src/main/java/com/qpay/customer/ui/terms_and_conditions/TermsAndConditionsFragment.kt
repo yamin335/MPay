@@ -61,6 +61,11 @@ class TermsAndConditionsFragment : BaseFragment<TermsBinding, TermsViewModel>() 
         viewDataBinding.toolbar.apply {
             host.registerToolbarWithNavigation(this)
         }
+
+        viewDataBinding.btnAccept.setOnClickListener {
+            navController().navigate(TermsAndConditionsFragmentDirections.actionTermsAndConditionsToOtpSignInFragment3())
+        }
+
         viewDataBinding.webView.settings.javaScriptEnabled = true
         viewDataBinding.webView.settings.loadWithOverviewMode = true
 
