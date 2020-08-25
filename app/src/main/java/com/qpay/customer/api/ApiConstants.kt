@@ -2,6 +2,7 @@ package com.qpay.customer.api
 
 
 object ApiEndPoint {
+
     /*Login*/
     const val ENDPOINT_LOGIN = "accounts/login"
     const val ENDPOINT_REFRESH_TOKEN = "accounts/refresh"
@@ -22,6 +23,11 @@ object Params {
     const val SENDER_IMAGE_FILE = "SenderImageFile"
     const val USER_IMAGE_FILE = "UserImage"
     const val NID_IMAGE_FILE = "NationalIdImage"
+
+    /* Registration develop */
+
+    const val REGISTRATION = "/$REPO/$API_VERSION/${DIRECTORY}registrationaccount/registration"
+
 }
 
 object ResponseCodes {
