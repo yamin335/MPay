@@ -23,11 +23,13 @@ import androidx.core.net.toFile
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.mlkit.common.MlKitException
 import com.google.mlkit.vision.face.FaceDetectorOptions
 import com.qpay.customer.BR
 import com.qpay.customer.R
 import com.qpay.customer.camerax.PermissionsFragment
+import com.qpay.customer.camerax.PermissionsFragmentArgs
 import com.qpay.customer.databinding.NIDScanCameraXFragmentBinding
 import com.qpay.customer.models.NIDBackModel
 import com.qpay.customer.models.NIDDataModels
@@ -73,6 +75,8 @@ class NIDScanCameraXFragment : BaseFragment<NIDScanCameraXFragmentBinding, NIDSc
     private lateinit var outputDirectory: File
     /** Blocking camera operations are performed using this executor */
     private lateinit var cameraExecutor: ExecutorService
+
+    val args: NIDScanCameraXFragmentArgs by navArgs()
 
     var imageType: ImageType = ImageType.NID_FRONT
     var nidFrontData = NIDFrontModel()
@@ -222,7 +226,7 @@ class NIDScanCameraXFragment : BaseFragment<NIDScanCameraXFragmentBinding, NIDSc
                             // We can only change the foreground Drawable using API level 23+ API
                             blinkUIAsCameraShutter()
 
-                            val action = NIDScanCameraXFragmentDirections.actionNIDScanCameraXFragmentToProfileSignInFragment(NIDDataModels(true, nidFrontData, nidBackData))
+                            val action = NIDScanCameraXFragmentDirections.actionNIDScanCameraXFragmentToProfileSignInFragment(NIDDataModels(true, nidFrontData, nidBackData), args.registrationHelper)
                             findNavController().navigate(action)
                         }
                     }, imageType)

@@ -1,7 +1,6 @@
 package com.qpay.customer.api
 
 
-import com.qpay.customer.api.api_services.AccountApiService
 import com.qpay.customer.prefs.PreferencesHelper
 import com.qpay.customer.util.convert
 import okhttp3.Authenticator
@@ -13,7 +12,7 @@ import javax.inject.Singleton
 @Singleton
 class TokenAuthenticator(
     private val preferencesHelper: PreferencesHelper,
-    private val accountApiService: AccountApiService
+    private val apiService: ApiService
 ) : Authenticator {
     override fun authenticate(route: Route?, response: Response): Request? {
         // We need to have a token in order to refresh it.
@@ -21,7 +20,7 @@ class TokenAuthenticator(
 
         synchronized(this) {
             // Check if the request made was previously made as an authenticated request.
-            if (response.request.header(AUTH_HEADER_NAME) != null) {
+            if (response.request.header("AUTH_HEADER_NAME") != null) {
                 val newToken = try {
                     refreshToken(token)
                 } catch (e: Exception) {
@@ -32,7 +31,7 @@ class TokenAuthenticator(
                 // Retry the request with the new token.
                 return response.request
                     .newBuilder()
-                    .header(AUTH_HEADER_NAME, preferencesHelper.getAuthHeader(newToken))
+                    .header("AUTH_HEADER_NAME", preferencesHelper.getAuthHeader(newToken))
                     .build()
             }
         }
@@ -48,10 +47,11 @@ class TokenAuthenticator(
         val tokenRequestModel = RefreshRequestModel()
         tokenRequestModel.token = preferencesHelper.refreshToken
 
-        val tokenInfo = accountApiService.refresh(tokenRequestModel.convert()).execute().body() ?: return null
-        preferencesHelper.saveToken(tokenInfo)
-
-        return tokenInfo.accessToken
+//        val tokenInfo = apiService.refresh(tokenRequestModel.convert()).execute().body() ?: return null
+//        preferencesHelper.saveToken(tokenInfo)
+//
+//        return tokenInfo.accessToken
+        return null
     }
 
 }

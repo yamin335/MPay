@@ -17,15 +17,6 @@
                             <option name="y" value="-656" />
                           </Point>
                         </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_NIDScanCameraXFragment_to_profileSignInFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -55,7 +46,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-328" />
+                            <option name="x" value="500" />
+                            <option name="y" value="12" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -123,11 +115,6 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_permissionsFragment_to_NIDScanCameraXFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                             <entry key="action_permissionsFragment_to_cameraFragment">
                               <value>
                                 <LayoutPositions />
@@ -269,8 +256,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="43" />
-                            <option name="y" value="-353" />
+                            <option name="x" value="149" />
+                            <option name="y" value="-361" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -280,24 +267,7 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_signInFragment_to_termsFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                           </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="termsAndConditions">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="-818" />
-                            <option name="y" value="-260" />
-                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -328,8 +298,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
+                            <option name="x" value="-57" />
+                            <option name="y" value="-359" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -530,8 +500,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="256" />
-                            <option name="y" value="78" />
+                            <option name="x" value="163" />
+                            <option name="y" value="-50" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -542,8 +512,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="256" />
-                            <option name="y" value="216" />
+                            <option name="x" value="190" />
+                            <option name="y" value="284" />
                           </Point>
                         </option>
                       </LayoutPositions>

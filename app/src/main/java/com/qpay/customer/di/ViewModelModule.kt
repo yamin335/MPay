@@ -23,7 +23,6 @@ import com.qpay.customer.ui.login.ViewPagerViewModel
 import com.qpay.customer.ui.otp_signin.OtpSignInViewModel
 import com.qpay.customer.ui.pin_number.PinNumberViewModel
 import com.qpay.customer.ui.profile_signin.ProfileSignInViewModel
-import com.qpay.customer.ui.terms_and_conditions.TermsViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -139,10 +138,5 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ProfileSignInViewModel::class)
     abstract fun bindSetupProfileSignInViewModel(viewModel: ProfileSignInViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(TermsViewModel::class)
-    abstract fun bindTermsViewModel(viewModel: TermsViewModel): ViewModel
 
 }

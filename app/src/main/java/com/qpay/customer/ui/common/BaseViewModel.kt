@@ -1,15 +1,46 @@
-package com.qpay.idoctorchamber.ui.common
+package com.qpay.customer.ui.common
 
+import android.app.Application
+import android.content.SharedPreferences
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.navigation.NavController
-import com.google.android.material.textfield.TextInputLayout
+import com.qpay.customer.R
+import com.qpay.customer.util.NetworkUtils
+import com.qpay.customer.util.showErrorToast
 
-abstract class BaseViewModel : ViewModel() {
+abstract class BaseViewModel constructor(val context: Application) : ViewModel() {
 
-    var navController: NavController? = null
+    val apiCallStatus: MutableLiveData<Int> by lazy {
+        MutableLiveData<Int>()
+    }
 
-    fun afterTextChanged(til: TextInputLayout) {
-        til.error = null
-        til.isErrorEnabled = false
+    val toastError = MutableLiveData<String>()
+    val toastWarning = MutableLiveData<String>()
+    val toastSuccess = MutableLiveData<String>()
+    val popBackStack = MutableLiveData<Boolean>()
+
+    fun checkNetworkStatus() = if (NetworkUtils.isNetworkConnected(context)) {
+        true
+    } else {
+        showErrorToast(context, context.getString(R.string.internet_error_msg))
+        false
+    }
+
+    fun onAppExit(preferences: SharedPreferences) {
+        preferences.edit().apply {
+            putString("LoggedUserPassword",null)
+            putString("LoggedUserID", null)
+            putBoolean("goToLogin", false)
+            apply()
+        }
+    }
+
+    fun onLogOut(preferences: SharedPreferences) {
+        preferences.edit().apply {
+            putString("LoggedUserPassword",null)
+            putString("LoggedUserID", null)
+            putBoolean("goToLogin", true)
+            apply()
+        }
     }
 }

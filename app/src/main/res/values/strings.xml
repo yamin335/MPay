@@ -1,5 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+    // QPay String Resources
     <string name="app_name">QPay</string>
+    <string name="internet_error_msg">Please check Your internet connection!</string>
+
+
     <string name="error_invalid_member">Invalid Member ID</string>
     <string name="error_invalid_password">Wrong Pin Code</string>
 
@@ -463,7 +467,4 @@
     <string name="pref_tracing_title">Debug performance tracing.</string>
     <string name="pref_tracing_dlg">Debug performance tracing.</string>
     <string name="pref_tracing_default" translatable="false">false</string>
-    <string name="please_select_operator">Please Select Operator</string>
-    <string name="terms_and_conditions">Terms And Conditions</string>
-    <string name="if_you_reject_these_permission_the_app_wont_work_perfectly">If you reject these permission this app won\'t work perfectly.</string>
 </resources>

@@ -269,7 +269,8 @@ dependencies {
     // Image labeling custom
     implementation 'com.google.mlkit:image-labeling-custom:16.2.0'
 
-    implementation 'gun0912.ted:tedpermission:2.2.3'
+    // LiveData KTX
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-alpha06'
 
 }
 //apply plugin: 'com.google.gms.google-services'

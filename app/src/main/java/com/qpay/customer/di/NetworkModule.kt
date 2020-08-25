@@ -5,9 +5,9 @@ import android.util.Log
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.qpay.customer.api.AUTH_HEADER_NAME
+import com.qpay.customer.api.Api
 import com.qpay.customer.api.TokenAuthenticator
-import com.qpay.customer.api.api_services.AccountApiService
+import com.qpay.customer.api.ApiService
 import com.qpay.customer.prefs.PreferencesHelper
 import com.qpay.customer.util.LiveDataCallAdapterFactory
 import com.qpay.customer.util.TLS12SocketFactory
@@ -38,13 +38,7 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
-        val httpLoggingInterceptor = HttpLoggingInterceptor()
-
-        /*httpLoggingInterceptor.level =
-            if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
-            else HttpLoggingInterceptor.Level.NONE*/
-
-        return httpLoggingInterceptor
+        return HttpLoggingInterceptor()
     }
 
     @Provides
@@ -56,11 +50,10 @@ class NetworkModule {
             .followRedirects(true)
             .followSslRedirects(true)
             .retryOnConnectionFailure(true)
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
+            .connectTimeout(5, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
             .addInterceptor(httpLoggingInterceptor)
-
 
         /*if (BuildConfig.Server.equals("san", true))
             setUnsafeSslFactoryForClient(clientBuilder)  *//* Disabled TLS for development *//*
@@ -73,24 +66,27 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideGson(): Gson =
-        GsonBuilder()
-            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-            .setLenient()
-            .create()
+    fun provideGsonConverterFactory(): GsonConverterFactory = GsonConverterFactory.create()
 
     @Provides
     @Singleton
-    fun provideGsonConverterFactory(gson: Gson): GsonConverterFactory =
-        GsonConverterFactory.create(gson)
+    fun provideLiveDataCallAdapterFactory(): LiveDataCallAdapterFactory = LiveDataCallAdapterFactory()
 
     @Provides
     @Singleton
-    fun provideLiveDataCallAdapterFactory(): LiveDataCallAdapterFactory =
-        LiveDataCallAdapterFactory() @Provides
-    @Singleton
-    fun provideScalarsConverterFactory(): ScalarsConverterFactory =
-        ScalarsConverterFactory.create()
+    fun provideScalarsConverterFactory(): ScalarsConverterFactory = ScalarsConverterFactory.create()
+
+    //    @Provides
+//    @Singleton
+//    fun provideGson(): Gson =
+//        GsonBuilder()
+//            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+//            .setLenient()
+//            .create()
+
+//    @Provides
+//    @Singleton
+//    fun provideGsonConverterFactory(gson: Gson): GsonConverterFactory = GsonConverterFactory.create(gson)
 
     @Provides
     @Singleton
@@ -123,7 +119,7 @@ class NetworkModule {
         gsonConverterFactory: GsonConverterFactory
     ): Retrofit.Builder =
         Retrofit.Builder()
-            //.baseUrl(API_URL)
+            .baseUrl(Api.API_ROOT_URL)
             .addConverterFactory(scalarsConverterFactory)
             .addConverterFactory(gsonConverterFactory)
             .addConverterFactory(nullOrEmptyConverterFactory)
@@ -142,7 +138,7 @@ class NetworkModule {
             val newBuilder = request.newBuilder()
             // let's add token if we got one
             preferencesHelper.accessToken?.let {
-                newBuilder.header(AUTH_HEADER_NAME, preferencesHelper.getAccessTokenHeader())
+                newBuilder.header("AUTH_HEADER_NAME", preferencesHelper.getAccessTokenHeader())
             }
 
             chain.proceed(newBuilder.build())
@@ -152,7 +148,7 @@ class NetworkModule {
     @Provides
     fun provideTokenAuthenticator(
         preferencesHelper: PreferencesHelper,
-        apiService: AccountApiService
+        apiService: ApiService
     ): TokenAuthenticator {
         return TokenAuthenticator(preferencesHelper, apiService)
     }
@@ -175,13 +171,13 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideAccountApiService(
+    fun provideApiService(
         okHttpClient: OkHttpClient,
         retrofitBuilder: Retrofit.Builder
-    ): AccountApiService {
+    ): ApiService {
         return retrofitBuilder
             .client(okHttpClient).build()
-            .create(AccountApiService::class.java)
+            .create(ApiService::class.java)
     }
 
     /* Configurations For Api which requires authentication  */
@@ -195,82 +191,81 @@ class NetworkModule {
      * Issue Details : https://github.com/square/okhttp/issues/1934
      */
 
-    private fun setSafeSslFactoryForClient(clientBuilder: OkHttpClient.Builder) {
-        if (Build.VERSION.SDK_INT in 16..21) {
-            var trustManager: X509TrustManager? = null
-
-            try {
-                val trustManagerFactory =
-                    TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm())
-                trustManagerFactory.init(null as KeyStore?)
-                val trustManagers = trustManagerFactory.trustManagers
-                if (trustManagers.size != 1 || trustManagers[0] !is X509TrustManager) {
-                    throw IllegalStateException(
-                        "Unexpected default trust managers:" + Arrays.toString(
-                            trustManagers
-                        )
-                    )
-                }
-                trustManager = trustManagers[0] as X509TrustManager
-            } catch (e: KeyStoreException) {
-                e.printStackTrace()
-            } catch (e: NoSuchAlgorithmException) {
-                e.printStackTrace()
-            }
-            try {
-                val sc = SSLContext.getInstance("TLSv1.2")
-                sc.init(null, null, null)
-                clientBuilder.sslSocketFactory(TLS12SocketFactory(sc.socketFactory), trustManager!!)
-
-                val cs = ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-                    .tlsVersions(TlsVersion.TLS_1_2)
-                    .build()
-
-                val specs = listOf(cs, ConnectionSpec.COMPATIBLE_TLS, ConnectionSpec.CLEARTEXT)
-
-                clientBuilder.connectionSpecs(specs)
-            } catch (exc: Exception) {
-                Log.e("OkHttpTLSCompat", "Error while setting TLS 1.2", exc)
-            }
-
-        }
-
-        /*certificate pinning*/
-
-        /*  val certificatePinner = CertificatePinner.Builder()
-                  .add(BuildConfig.HOST, BuildConfig.SHA256_1)
-                  .add(BuildConfig.HOST, BuildConfig.SHA256_2)
-                  .add(BuildConfig.HOST, BuildConfig.SHA256_3)
-                  .build()
-          clientBuilder.certificatePinner(certificatePinner)*/
-    }
+//    private fun setSafeSslFactoryForClient(clientBuilder: OkHttpClient.Builder) {
+//        if (Build.VERSION.SDK_INT in 16..21) {
+//            var trustManager: X509TrustManager? = null
+//
+//            try {
+//                val trustManagerFactory =
+//                    TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm())
+//                trustManagerFactory.init(null as KeyStore?)
+//                val trustManagers = trustManagerFactory.trustManagers
+//                if (trustManagers.size != 1 || trustManagers[0] !is X509TrustManager) {
+//                    throw IllegalStateException(
+//                        "Unexpected default trust managers:" + Arrays.toString(
+//                            trustManagers
+//                        )
+//                    )
+//                }
+//                trustManager = trustManagers[0] as X509TrustManager
+//            } catch (e: KeyStoreException) {
+//                e.printStackTrace()
+//            } catch (e: NoSuchAlgorithmException) {
+//                e.printStackTrace()
+//            }
+//            try {
+//                val sc = SSLContext.getInstance("TLSv1.2")
+//                sc.init(null, null, null)
+//                clientBuilder.sslSocketFactory(TLS12SocketFactory(sc.socketFactory), trustManager!!)
+//
+//                val cs = ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+//                    .tlsVersions(TlsVersion.TLS_1_2)
+//                    .build()
+//
+//                val specs = listOf(cs, ConnectionSpec.COMPATIBLE_TLS, ConnectionSpec.CLEARTEXT)
+//
+//                clientBuilder.connectionSpecs(specs)
+//            } catch (exc: Exception) {
+//                Log.e("OkHttpTLSCompat", "Error while setting TLS 1.2", exc)
+//            }
+//
+//        }
+//
+//        /*certificate pinning*/
+//
+//        /*  val certificatePinner = CertificatePinner.Builder()
+//                  .add(BuildConfig.HOST, BuildConfig.SHA256_1)
+//                  .add(BuildConfig.HOST, BuildConfig.SHA256_2)
+//                  .add(BuildConfig.HOST, BuildConfig.SHA256_3)
+//                  .build()
+//          clientBuilder.certificatePinner(certificatePinner)*/
+//    }
 
     /*unsafe for debug */
-    fun setUnsafeSslFactoryForClient(clientBuilder: OkHttpClient.Builder) {
-        val trustManager = object : X509TrustManager {
-            @Throws(CertificateException::class)
-            override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {
-            }
-
-            @Throws(CertificateException::class)
-            override fun checkServerTrusted(chain: Array<out X509Certificate>?, authType: String?) {
-            }
-
-            override fun getAcceptedIssuers(): Array<X509Certificate> = emptyArray()
-        }
-
-
-        try {
-            val sc = SSLContext.getInstance("SSL")
-            sc.init(null, arrayOf(trustManager), SecureRandom())
-            clientBuilder.sslSocketFactory(TLS12SocketFactory(sc.socketFactory), trustManager)
-        } catch (e: NoSuchAlgorithmException) {
-            e.printStackTrace()
-        } catch (e: KeyManagementException) {
-            e.printStackTrace()
-        }
-        clientBuilder.hostnameVerifier(HostnameVerifier { s, sslSession -> true })
-
-    }
+//    fun setUnsafeSslFactoryForClient(clientBuilder: OkHttpClient.Builder) {
+//        val trustManager = object : X509TrustManager {
+//            @Throws(CertificateException::class)
+//            override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {
+//            }
+//
+//            @Throws(CertificateException::class)
+//            override fun checkServerTrusted(chain: Array<out X509Certificate>?, authType: String?) {
+//            }
+//
+//            override fun getAcceptedIssuers(): Array<X509Certificate> = emptyArray()
+//        }
+//
+//
+//        try {
+//            val sc = SSLContext.getInstance("SSL")
+//            sc.init(null, arrayOf(trustManager), SecureRandom())
+//            clientBuilder.sslSocketFactory(TLS12SocketFactory(sc.socketFactory), trustManager)
+//        } catch (e: NoSuchAlgorithmException) {
+//            e.printStackTrace()
+//        } catch (e: KeyManagementException) {
+//            e.printStackTrace()
+//        }
+//        clientBuilder.hostnameVerifier(HostnameVerifier { s, sslSession -> true })
+//    }
 
 }

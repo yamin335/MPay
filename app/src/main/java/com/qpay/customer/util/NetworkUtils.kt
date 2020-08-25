@@ -30,7 +30,6 @@ object NetworkUtils {
                 }
             }
         }
-
         return false
     }
 }

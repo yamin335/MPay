@@ -5,7 +5,6 @@ import com.qpay.customer.ui.chapter_list.ChapterListFragment
 import com.qpay.customer.ui.home.HomeFragment
 import com.qpay.customer.ui.how_works.HowWorksFragment
 import com.qpay.customer.ui.login.SignInFragment
-import com.qpay.customer.ui.terms_and_conditions.TermsAndConditionsFragment
 import com.qpay.customer.ui.on_boarding.tou.TouFragment
 import com.qpay.customer.ui.otp.OtpFragment
 import com.qpay.customer.ui.pre_on_boarding.PreOnBoardingFragment
@@ -30,10 +29,6 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract fun contributeSplashFragment(): SplashFragment
-
-    @ContributesAndroidInjector
-    abstract fun contributeTermsAndConditionsFragment(): TermsAndConditionsFragment
-
 
     @ContributesAndroidInjector
     abstract fun contributeSignInFragment(): SignInFragment

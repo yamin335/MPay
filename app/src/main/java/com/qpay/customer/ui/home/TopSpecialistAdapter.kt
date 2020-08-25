@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import com.qpay.customer.AppExecutors
 import com.qpay.customer.R
-import com.qpay.customer.api.model.SubBook
+import com.qpay.customer.models.SubBook
 import com.qpay.customer.databinding.ItemTopSpecialistBinding
 import com.qpay.customer.util.DataBoundListAdapter
 
