@@ -26,7 +26,7 @@ object Params {
 
     /* Registration develop */
 
-    const val REGISTRATION = "/$REPO/$API_VERSION/${DIRECTORY}registrationaccount/registration"
+    ///const val REGISTRATION = "/$REPO/$API_VERSION/${DIRECTORY}registrationaccount/registration"
 
 }
 
