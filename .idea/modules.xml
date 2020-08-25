@@ -10,6 +10,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/searchablespinner/android-searchablespinner.iml" filepath="$PROJECT_DIR$/.idea/modules/searchablespinner/android-searchablespinner.iml" group="QPay/searchablespinner" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/android-sumi-QPay.iml" filepath="$PROJECT_DIR$/.idea/modules/android-sumi-QPay.iml" group="QPay" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="QPay/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/opo-android-QPay.iml" filepath="$PROJECT_DIR$/.idea/modules/opo-android-QPay.iml" group="QPay" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/opo-android-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/opo-android-app.iml" group="QPay/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/searchablespinner/opo-android-searchablespinner.iml" filepath="$PROJECT_DIR$/.idea/modules/searchablespinner/opo-android-searchablespinner.iml" group="QPay/searchablespinner" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/searchablespinner/searchablespinner.iml" filepath="$PROJECT_DIR$/.idea/modules/searchablespinner/searchablespinner.iml" group="QPay/searchablespinner" />
     </modules>
   </component>
