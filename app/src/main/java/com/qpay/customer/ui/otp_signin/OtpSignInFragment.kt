@@ -10,6 +10,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.WindowManager
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.qpay.customer.BR
@@ -27,13 +28,19 @@ class OtpSignInFragment : BaseFragment<OtpSignInBinding, OtpSignInViewModel>(), 
 
     override val viewModel: OtpSignInViewModel by viewModels { viewModelFactory }
 
+    val args: OtpSignInFragmentArgs by navArgs()
+
     var navigationHost: NavigationHost? = null
 
     var START_TIME_IN_MILLI_SECONDS = 180000L
     lateinit var countdown_timer: CountDownTimer
     var repeater = 0
     override fun onPermissionGranted() {
-        navController().navigate(OtpSignInFragmentDirections.actionOtpSignInFragmentToPinNumberFragment())
+        val otp = viewDataBinding.etOtpCode.text.toString()
+        val helper = args.registrationHelper
+        helper.otp = otp
+        val action = OtpSignInFragmentDirections.actionOtpSignInFragmentToPinNumberFragment(helper)
+        navController.navigate(action)
     }
 
     override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {

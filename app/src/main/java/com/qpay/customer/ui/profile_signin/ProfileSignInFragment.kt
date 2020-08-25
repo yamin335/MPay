@@ -87,8 +87,15 @@ class ProfileSignInFragment : BaseFragment<ProfileSignInBinding, ProfileSignInVi
             host.registerToolbarWithNavigation(this)
         }
         viewDataBinding.btnSubmit.setOnClickListener {
-            navController().navigate(ProfileSignInFragmentDirections.actionProfileSignInFragmentToHome())
-            //showToast("Not Implemented yet")
+//            viewModel.registerNewUser(viewDataBinding.nameField.text.toString(), "",
+//                "", "", "", "",
+//                null, null, null).observe(viewLifecycleOwner, androidx.lifecycle.Observer {response ->
+//                if (response != null) {
+//                    // Just a primary navigation. Security check should have to implement later.
+//                    navController().navigate(ProfileSignInFragmentDirections.actionProfileSignInFragmentToHome())
+//                }
+//            })
+            navController.navigate(ProfileSignInFragmentDirections.actionProfileSignInFragmentToHome())
         }
         viewDataBinding.rivNidFrontImage.setOnClickListener {
             dispatchTakePictureIntent("rivNidFrontImage")

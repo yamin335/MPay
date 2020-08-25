@@ -41,7 +41,7 @@ class ViewPagerFragment : BaseFragment<ViewPagerBinding, ViewPagerViewModel>() {
 
 
         viewDataBinding.btnLogin.setOnClickListener {
-            navController().navigate(ViewPagerFragmentDirections.actionViewPagerFragmentToSignInFragment())
+            navController.navigate(ViewPagerFragmentDirections.actionViewPagerFragmentToSignInFragment())
         }
 
         updateStatusBarBackgroundColor("#1E4356")

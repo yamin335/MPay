@@ -20,7 +20,7 @@ class HowWorksFragment : BaseFragment<HowWorksBinding, HowWorksViewModel>() {
         super.onViewCreated(view, savedInstanceState)
 
         viewDataBinding.btnOnboardingStart.setOnClickListener {
-            navController().navigate(HowWorksFragmentDirections.actionHowWorksToRegistration())
+            navController.navigate(HowWorksFragmentDirections.actionHowWorksToRegistration())
         }
     }
 }

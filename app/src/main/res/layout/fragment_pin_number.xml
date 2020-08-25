@@ -57,6 +57,7 @@
                         android:orientation="horizontal">
 
                         <EditText
+                            android:id="@+id/etPin"
                             android:theme="@style/EditTextTheme"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -99,6 +100,7 @@
                         android:orientation="horizontal">
 
                         <EditText
+                            android:id="@+id/etRepin"
                             android:theme="@style/EditTextTheme"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

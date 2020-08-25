@@ -21,7 +21,7 @@ class ChapterListFragment : BaseFragment<FragmentChapterListBinding, ChapterList
         super.onViewCreated(view, savedInstanceState)
 
         chapterListAdapter = ChapterListAdapter(appExecutors) {
-            navController().navigate(
+            navController.navigate(
                 //ChapterListFragmentDirections.actionChapterListToVideoPlay("vedio_file")
                 ChapterListFragmentDirections.actionChapterListToWebView()
             )

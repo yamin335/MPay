@@ -7,11 +7,13 @@ import android.view.WindowManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.qpay.customer.BR
 import com.qpay.customer.R
 import com.qpay.customer.databinding.TermsBinding
 import com.qpay.customer.ui.NavigationHost
 import com.qpay.customer.ui.common.BaseFragment
+import com.qpay.customer.ui.otp_signin.OtpSignInFragmentArgs
 
 
 class TermsAndConditionsFragment : BaseFragment<TermsBinding, TermsViewModel>() {
@@ -27,6 +29,8 @@ class TermsAndConditionsFragment : BaseFragment<TermsBinding, TermsViewModel>() 
     }
 
     var navigationHost: NavigationHost? = null
+
+    val args: TermsAndConditionsFragmentArgs by navArgs()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -63,7 +67,7 @@ class TermsAndConditionsFragment : BaseFragment<TermsBinding, TermsViewModel>() 
         }
 
         viewDataBinding.btnAccept.setOnClickListener {
-            navController().navigate(TermsAndConditionsFragmentDirections.actionTermsAndConditionsToOtpSignInFragment3())
+            navController.navigate(TermsAndConditionsFragmentDirections.actionTermsAndConditionsToOtpSignInFragment3(args.registrationHelper))
         }
 
         viewDataBinding.webView.settings.javaScriptEnabled = true

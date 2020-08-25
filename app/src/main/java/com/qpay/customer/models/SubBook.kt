@@ -1,4 +1,4 @@
-package com.qpay.customer.api.model
+package com.qpay.customer.models
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

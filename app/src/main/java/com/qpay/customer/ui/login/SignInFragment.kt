@@ -19,6 +19,7 @@ import com.qpay.customer.BR
 import com.qpay.customer.databinding.LayoutOperatorSelectionBinding
 import com.qpay.customer.databinding.SignInBinding
 import com.qpay.customer.databinding.ViewPagerBinding
+import com.qpay.customer.models.RegistrationHelperModel
 import com.qpay.customer.ui.NavigationHost
 import com.qpay.customer.ui.common.BaseFragment
 
@@ -93,10 +94,6 @@ class SignInFragment : BaseFragment<SignInBinding, SignInViewModel>() {
 
         })
 
-
-
-
-
         viewDataBinding.btnProceed.setOnClickListener {
 
             openOperatorSelectionDialog()
@@ -136,7 +133,10 @@ class SignInFragment : BaseFragment<SignInBinding, SignInViewModel>() {
 
     private fun redirectToTermsAndConditionsScreen(dialog: BottomSheetDialog) {
         dialog.dismiss()
-        navController().navigate(SignInFragmentDirections.actionSignInFragmentToTermsFragment())
+        val mobileNumber = viewDataBinding.etMobileNo.text.toString()
+        val action = SignInFragmentDirections.actionSignInFragmentToTermsFragment(
+            RegistrationHelperModel(mobileNumber)
+        )
+        navController.navigate(action)
     }
-
 }

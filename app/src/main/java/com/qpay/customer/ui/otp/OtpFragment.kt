@@ -19,7 +19,7 @@ class OtpFragment  : BaseFragment<OtpBinding, OtpViewModel>() {
         super.onViewCreated(view, savedInstanceState)
 
         viewDataBinding.btnVerify.setOnClickListener {
-            navController().navigate(OtpFragmentDirections.actionOtpToTou())
+            navController.navigate(OtpFragmentDirections.actionOtpToTou())
         }
     }
 }

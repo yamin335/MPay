@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.MergeAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.qpay.customer.AppExecutors
 import com.qpay.customer.R
-import com.qpay.customer.api.model.Book
-import com.qpay.customer.api.model.SubBook
+import com.qpay.customer.models.Book
+import com.qpay.customer.models.SubBook
 import com.qpay.customer.databinding.ItemDoctorsListBinding
 import com.qpay.customer.util.DataBoundListAdapter
 

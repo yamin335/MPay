@@ -253,11 +253,11 @@ class CameraFragment : Fragment() {
             }
         }
 
-        if (isCapturingFrontSide == false && isBackSideCaptured == true) {
-            progress.visibility = View.GONE
-            val action = CameraFragmentDirections.actionCameraFragmentToProfileSignInFragment(NIDDataModels(false, nidFrontData, nidBackData))
-            findNavController().navigate(action)
-        }
+//        if (isCapturingFrontSide == false && isBackSideCaptured == true) {
+//            progress.visibility = View.GONE
+//            val action = CameraFragmentDirections.actionCameraFragmentToProfileSignInFragment(NIDDataModels(false, nidFrontData, nidBackData))
+//            findNavController().navigate(action)
+//        }
     }
 
     @SuppressLint("MissingPermission")

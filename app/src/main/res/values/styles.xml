@@ -133,7 +133,7 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowAnimationStyle">@null</item>
-        <item name="android:windowBackground">@drawable/splash_engineers</item>
+        <item name="android:windowBackground">@color/themeColor</item>
     </style>
 
 

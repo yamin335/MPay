@@ -23,6 +23,7 @@ import androidx.core.net.toFile
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.mlkit.common.MlKitException
 import com.google.mlkit.vision.face.FaceDetectorOptions
 import com.qpay.customer.BR
@@ -60,6 +61,8 @@ class NIDScanCameraXFragment : BaseFragment<NIDScanCameraXFragmentBinding, NIDSc
         get() = R.layout.fragment_nid_scan_camerax_preview
 
     override val viewModel: NIDScanCameraXViewModel by viewModels { viewModelFactory }
+
+    val args: NIDScanCameraXFragmentArgs by navArgs()
 
     private var cameraProvider: ProcessCameraProvider? = null
     private var previewUseCase: Preview? = null
@@ -222,8 +225,8 @@ class NIDScanCameraXFragment : BaseFragment<NIDScanCameraXFragmentBinding, NIDSc
                             // We can only change the foreground Drawable using API level 23+ API
                             blinkUIAsCameraShutter()
 
-                            val action = NIDScanCameraXFragmentDirections.actionNIDScanCameraXFragmentToProfileSignInFragment(NIDDataModels(true, nidFrontData, nidBackData))
-                            findNavController().navigate(action)
+                            val action = NIDScanCameraXFragmentDirections.actionNIDScanCameraXFragmentToProfileSignInFragment(NIDDataModels(true, nidFrontData, nidBackData), args.registrationHelper)
+                            navController.navigate(action)
                         }
                     }, imageType)
                 }

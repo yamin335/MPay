@@ -1,7 +1,7 @@
 package com.qpay.customer.ui.chapter_list
 
 import androidx.lifecycle.ViewModel
-import com.qpay.customer.api.model.Chapter
+import com.qpay.customer.models.Chapter
 import com.qpay.customer.prefs.PreferencesHelper
 import javax.inject.Inject
 

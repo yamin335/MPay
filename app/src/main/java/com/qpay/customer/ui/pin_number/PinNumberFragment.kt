@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.qpay.customer.BR
 import com.qpay.customer.R
 import com.qpay.customer.databinding.PinNumberBinding
 import com.qpay.customer.ui.NavigationHost
 import com.qpay.customer.ui.common.BaseFragment
+import com.qpay.customer.util.showErrorToast
 
 class PinNumberFragment : BaseFragment<PinNumberBinding, PinNumberViewModel>() {
 
@@ -20,6 +22,7 @@ class PinNumberFragment : BaseFragment<PinNumberBinding, PinNumberViewModel>() {
 
     override val viewModel: PinNumberViewModel by viewModels { viewModelFactory }
 
+    val args: PinNumberFragmentArgs by navArgs()
 
     var navigationHost: NavigationHost? = null
 
@@ -57,7 +60,28 @@ class PinNumberFragment : BaseFragment<PinNumberBinding, PinNumberViewModel>() {
             host.registerToolbarWithNavigation(this)
         }
         viewDataBinding.btnSubmit.setOnClickListener {
-            navController().navigate(PinNumberFragmentDirections.actionPinNumberFragmentToPermissionsFragment())
+            val pin = viewDataBinding.etPin.text.toString()
+            val rePin = viewDataBinding.etRepin.text.toString()
+            when {
+                pin.isBlank() -> {
+                    viewDataBinding.etPin.requestFocus()
+                    showErrorToast(requireContext(), "Please enter a valid pin!")
+                }
+                rePin.isBlank() -> {
+                    viewDataBinding.etRepin.requestFocus()
+                    showErrorToast(requireContext(), "Please enter your pin again!")
+                }
+                pin != rePin -> {
+                    viewDataBinding.etRepin.requestFocus()
+                    showErrorToast(requireContext(), "Pin does not match")
+                }
+                pin.isNotBlank() && rePin.isNotBlank() && pin == rePin -> {
+                    val helper = args.registrationHelper
+                    helper.pinNumber = pin
+                    val action = PinNumberFragmentDirections.actionPinNumberFragmentToPermissionsFragment(helper)
+                    navController.navigate(action)
+                }
+            }
         }
     }
 

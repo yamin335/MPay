@@ -18,7 +18,7 @@ class TouFragment  : BaseFragment<TouBinding, TouViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewDataBinding.btnAgree.setOnClickListener {
-            navController().navigate(TouFragmentDirections.actionTouToSetup())
+            navController.navigate(TouFragmentDirections.actionTouToSetup())
         }
     }
 }

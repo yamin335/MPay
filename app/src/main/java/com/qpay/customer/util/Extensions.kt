@@ -1,6 +1,7 @@
 package com.qpay.customer.util
 
 import android.annotation.SuppressLint
+import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
@@ -29,6 +30,13 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
+
+fun File.asFilePart(name: String): MultipartBody.Part {
+    val attachedFile = this.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+    return MultipartBody.Part.createFormData(name, this.name, attachedFile)
+}
+
+fun Uri.asFile(context: Application) = FileUtils.getFileFromUri(context, this)
 
 fun String?.userNameError() =
     when {

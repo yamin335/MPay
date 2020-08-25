@@ -1,9 +1,9 @@
-package com.qpay.customer.api.model
+package com.qpay.customer.models
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class Chapter(
+data class Book(
     @SerializedName("id")
     @Expose
     val id: String? = null,
@@ -12,13 +12,8 @@ class Chapter(
     @Expose
     val title: String? = null,
 
-    @SerializedName("image")
-    @Expose
-    val image: Int? = null,
+    val listOfSubDoctors: List<SubBook>
+    /*get() =  as List<SubDoctor>*/
 
-
-    @SerializedName("chapter_url")
-    @Expose
-    val chapterVideoUrl: String? = null
 
 )

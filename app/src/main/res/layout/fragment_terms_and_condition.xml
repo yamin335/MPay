@@ -41,6 +41,7 @@
             android:insetBottom="0dp"
             android:text="@string/accept"
             android:textAllCaps="false"
+            android:insetTop="0dp"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:cornerRadius="0dp" />

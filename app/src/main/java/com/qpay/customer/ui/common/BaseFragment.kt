@@ -30,13 +30,16 @@ import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.*
+import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.qpay.customer.AppExecutors
+import com.qpay.customer.R
 import com.qpay.customer.prefs.PreferencesHelper
 import com.qpay.customer.util.NetworkUtils
 import com.qpay.customer.util.autoCleared
+import com.qpay.customer.util.showErrorToast
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -71,8 +74,15 @@ abstract class BaseFragment<T : ViewDataBinding, V : ViewModel> : DaggerFragment
      */
     abstract val viewModel: V
 
-    val isNetworkConnected: Boolean
-        get() = NetworkUtils.isNetworkConnected(context)
+    fun checkNetworkStatus() = if (NetworkUtils.isNetworkConnected(context)) {
+        true
+    } else {
+        showErrorToast(requireContext(), requireContext().getString(R.string.internet_error_msg))
+        false
+    }
+
+    //    val isNetworkConnected: Boolean
+//        get() = NetworkUtils.isNetworkConnected(context)
 
     @Inject
     lateinit var preferencesHelper: PreferencesHelper
@@ -129,7 +139,8 @@ abstract class BaseFragment<T : ViewDataBinding, V : ViewModel> : DaggerFragment
     /**
      * Created to be able to override in tests
      */
-    fun navController() = findNavController()
+    val navController: NavController
+        get() = findNavController()
 
     /**
      * Starts SmsRetriever, which waits for ONE matching SMS message until timeout
@@ -275,7 +286,7 @@ abstract class BaseFragment<T : ViewDataBinding, V : ViewModel> : DaggerFragment
 
     fun navigateTo(navId: Int, args: Bundle? = null) {
         try {
-            if (navId == navController().currentDestination?.id) {
+            if (navId == navController.currentDestination?.id) {
                 return // user tapped the current item
             }
             val options = navOptions {
@@ -287,7 +298,7 @@ abstract class BaseFragment<T : ViewDataBinding, V : ViewModel> : DaggerFragment
                 }*/
                 launchSingleTop = true
             }
-            navController().navigate(navId, args, options)
+            navController.navigate(navId, args, options)
         } catch (e: Exception) {
 
         }
@@ -295,7 +306,7 @@ abstract class BaseFragment<T : ViewDataBinding, V : ViewModel> : DaggerFragment
 
     fun navigateTo(direction: NavDirections) {
         try {
-            navController().navigate(direction)
+            navController.navigate(direction)
         } catch (e: Exception) {
 
         }

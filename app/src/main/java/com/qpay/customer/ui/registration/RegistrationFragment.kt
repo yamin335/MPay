@@ -18,7 +18,7 @@ class RegistrationFragment  : BaseFragment<RegistrationBinding, RegistrationView
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewDataBinding.btnGetOtp.setOnClickListener {
-            navController().navigate(RegistrationFragmentDirections.actionRegistrationToOtp())
+            navController.navigate(RegistrationFragmentDirections.actionRegistrationToOtp())
         }
     }
 }
