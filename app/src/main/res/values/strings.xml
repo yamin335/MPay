@@ -465,4 +465,5 @@
     <string name="pref_tracing_default" translatable="false">false</string>
     <string name="please_select_operator">Please Select Operator</string>
     <string name="terms_and_conditions">Terms And Conditions</string>
+    <string name="if_you_reject_these_permission_the_app_wont_work_perfectly">If you reject these permission this app won\'t work perfectly.</string>
 </resources>
